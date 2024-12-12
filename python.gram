@@ -1374,11 +1374,38 @@ expressions:
 expression (memo):
     | invalid_expression
     | invalid_legacy_expression
+    | match_expr
     | a=disjunction 'if' b=disjunction 'else' c=expression {
         ast.IfExp(body=a, test=b, orelse=c, LOCATIONS)
      }
     | disjunction
     | lambdef
+
+match_expr["ast.Match"]:
+    | "pmatch" subject=subject_expr ':' NEWLINE INDENT blocks=match_block+ DEDENT 'endpmatch' {
+        ast.Match(subject=subject, cases=blocks, LOCATIONS)
+     }
+    | invalid_match_stmt
+
+invalid_match_block[NoReturn]:
+    | "case" patterns guard? ':' { self.raise_syntax_error("Not match_stmt. Expected 'expression :'") }
+    | INDENT {
+        self.raise_indentation_error(
+            f"did not expect INDENT after 'pmatch' expression on line {a.start[0]}"
+        )
+     }
+
+match_block["ast.match_case"]:
+    | invalid_match_block
+    | pattern=match_block_pattern':' body=expression NEWLINE {
+        ast.match_case(pattern=pattern, guard=None, body=body)
+     }
+
+match_block_pattern:
+    | '_'
+    | literal_expr
+    | type_expressions
+
 
 yield_expr:
     | 'yield' 'from' a=expression { ast.YieldFrom(value=a, LOCATIONS) }
