@@ -11,7 +11,7 @@ class Rectangle:
     w: int
 
 def test(obj):
-    a = pmatch num:
+    a = pmatch obj:
         Circle(r): 2 * r
         Rectangle(h, w): h + w
         _: -1
