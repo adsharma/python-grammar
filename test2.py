@@ -5,7 +5,7 @@ def test(num):
         2: "Two"
         3: "Three"
         _: "Number not between 1 and 3"
-    endpmatch
+    ;
 
     return a
 

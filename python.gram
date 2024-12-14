@@ -1382,7 +1382,7 @@ expression (memo):
     | lambdef
 
 match_expr["ast.Match"]:
-    | "pmatch" subject=subject_expr ':' NEWLINE INDENT blocks=match_block+ DEDENT 'endpmatch' {
+    | "pmatch" subject=subject_expr ':' NEWLINE INDENT blocks=match_block+ DEDENT {
         ast.Match(subject=subject, cases=blocks, LOCATIONS)
      }
     | invalid_match_stmt
