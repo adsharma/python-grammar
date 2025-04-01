@@ -1,13 +1,14 @@
-# Proposed match_expr using keywords pmatch/endpmatch
-def test(num):
+# Proposed match_expr using the keyword pmatch
+def test(num, num2):
     a = pmatch num:
         1: "One"
         2: "Two"
-        3: "Three"
+        3: pmatch num2:
+           1: "One"
+           2: "Two"
+           3: "Three"
         _: "Number not between 1 and 3"
-    ;
-
     return a
 
 
-test(10)
+test(3, 2)

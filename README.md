@@ -6,3 +6,5 @@ and borgo (a language that compiles to golang)
 
 Uses [pegen](https://github.com/we-like-parsers/pegen). Has instructions on
 installation and how to parse the test cases.
+
+You'll need to pick up https://github.com/we-like-parsers/pegen/pull/111
