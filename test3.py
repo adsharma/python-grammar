@@ -15,7 +15,6 @@ def test(obj):
         Circle(r): 2 * r
         Rectangle(h, w): h + w
         _: -1
-    ;
 
     return a
 
